@@ -1,0 +1,37 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.container-box{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 15px;
+}
+input{
+    padding: 10px;
+    width: 70%;
+}
+button{
+    padding: 10px;
+}
+.error{
+    color: red;
+}
+@media screen and (max-width: 950px) {
+    .container-box{
+        width: 60%;
+    }
+    .container-box h1{
+        font-size: large;
+    }
+    input{
+        width: 90%;
+    }
+}
