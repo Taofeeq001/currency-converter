@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import './Converter.css'
+import './Converter.css';
+import axios from 'axios'
 
 const Converter = ()=>{
-    const [input, setInput] = useState({});
+    const [input, setInput] = useState("");
     const [naira, setNaira] = useState('')
     const [error, setError] = useState(false);
 
@@ -11,19 +12,25 @@ const Converter = ()=>{
         if(!input){
             setError("The above space can not be empty")
         }
-        const base_url = `https://dashboard.encryptbox.co.uk/api/v1/live/getbuyrate`
-        const token = `0Coc24mjYhlsJ8bPSZWYKGjVKYHeWBhDjgqlqiFK4Hf9FsLN5HTMpRxej85pMwGx`
+        const base_url = 'https://dashboard.encryptbox.co.uk/api/v1/live/getbuyrate';
+        const token = '0Coc24mjYhIsJ8bPSZWYKGjVKYHeWBhDjgqIqiFK4Hf9FsLN5HTMpRxej85pMwGx';
 
-        try {
-            const response = await fetch(base_url, {
-                method: "POST",
-                headers: {token: token}
-            })
-            .then((res)=>res.json())
-            setNaira(response)
-        } catch (error) {
-            console.log(error)
-        }
+        axios.post(base_url,{
+            "amount": input,
+            "coin_name": "busd"    
+           }, {
+            headers: {
+              token: token
+            },
+             
+          })
+          .then(response => {
+            const { coin } = response.data;
+            setNaira(coin);
+          })
+          .catch(error => {
+            console.error('Conversion API Error:', error);
+        });
     }
     return(
         <div className="container">
